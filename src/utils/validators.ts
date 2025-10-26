@@ -1,13 +1,10 @@
-export const isEmail = (value: string) => /\S+@\S+\.\S+/.test(value);
-export const isRequired = (value: any) =>
-  value === null || value === undefined || value === "" ? "This field is required" : "";
 
-export function validateForm(values: Record<string, any>) {
-  const errors: Record<string, string> = {};
+import inputChecker from "./inputChecker";
+type ValidatorFn = (v: any) => string | null;
 
-  if (!values.username) errors.username = "Username is required";
-  if (!values.email) errors.email = "Email is required";
-  else if (!isEmail(values.email)) errors.email = "Invalid email address";
-
-  return errors;
+export function getError(type: string, value: any): string | null {
+  const validator = inputChecker[type as keyof typeof inputChecker] as ValidatorFn | undefined;
+  if (validator) return validator(value);
+  if (typeof value === "string" && !value.trim()) return "This field is required.";
+  return null;
 }
