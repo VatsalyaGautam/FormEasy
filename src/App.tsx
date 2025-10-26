@@ -1,4 +1,10 @@
 import useFormEasy from "./hooks/useFormEasy";
+import FormInput from "./components/FormInput";
+import FormTextarea from "./components/FormTextarea";
+import FormSelect from "./components/FormSelect";
+import FormCheckbox from "./components/FormCheckbox";
+import FormRadio from "./components/FormRadio";
+import FormWrapper from "./components/FormWrapper";
 
 export default function App() {
   const { values, errors, handleChange, handleSubmit } = useFormEasy(
@@ -6,135 +12,97 @@ export default function App() {
       name: "",
       email: "",
       password: "",
-      phone: "",
-      date: "",
-      time: "",
-      agree: false,
-      file: null,
-      option: "",
-      gender: "",
       bio: "",
+      gender: "",
+      country: "",
+      agree: false,
     },
     (vals) => console.log("✅ Form submitted:", vals)
   );
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col gap-4 p-6 max-w-md mx-auto bg-white shadow-md rounded-lg"
-    >
-      {/* --- Text inputs --- */}
-      <input
-        type="text"
-        placeholder="Full name"
+    <FormWrapper
+  title="Form Easy Example"
+  description="Beautifully validated form built with useFormEasy"
+  onSubmit={handleSubmit}
+>
+
+      {/* 🟦 Name */}
+      <FormInput
+        label="Full Name"
         value={values.name}
-        onChange={(e) => handleChange("name", e.target.value)}
+        error={errors.name}
+        onChange={(v) => handleChange("name", v)}
       />
-      {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
 
-      <input
+      {/* 🟦 Email */}
+      <FormInput
+        label="Email Address"
         type="email"
-        placeholder="Email"
         value={values.email}
-        onChange={(e) => handleChange("email", e.target.value)}
+        error={errors.email}
+        onChange={(v) => handleChange("email", v)}
       />
-      {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
 
-      <input
+      {/* 🟦 Password */}
+      <FormInput
+        label="Password"
         type="password"
-        placeholder="Password"
         value={values.password}
-        onChange={(e) => handleChange("password", e.target.value)}
+        error={errors.password}
+        onChange={(v) => handleChange("password", v)}
       />
-      {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
 
-      <input
-        type="tel"
-        placeholder="Phone"
-        value={values.phone}
-        onChange={(e) => handleChange("phone", e.target.value)}
+      {/* 🟨 Select */}
+      <FormSelect
+        label="Country"
+        value={values.country}
+        onChange={(v) => handleChange("country", v)}
+        error={errors.country}
+        options={[
+          { label: "India", value: "IN" },
+          { label: "USA", value: "US" },
+          { label: "Canada", value: "CA" },
+        ]}
       />
-      {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
 
-      <input
-        type="date"
-        value={values.date}
-        onChange={(e) => handleChange("date", e.target.value)}
+      {/* 🟩 Radio */}
+      <FormRadio
+        label="Gender"
+        name="gender"
+        value={values.gender}
+        error={errors.gender}
+        onChange={(v) => handleChange("gender", v)}
+        options={[
+          { label: "Male", value: "male" },
+          { label: "Female", value: "female" },
+          { label: "Other", value: "other" },
+        ]}
       />
-      {errors.date && <p className="text-red-500 text-sm">{errors.date}</p>}
 
-      <input
-        type="time"
-        value={values.time}
-        onChange={(e) => handleChange("time", e.target.value)}
-      />
-      {errors.time && <p className="text-red-500 text-sm">{errors.time}</p>}
-
-      <textarea
-        placeholder="Write your bio..."
+      {/* 🟦 Textarea */}
+      <FormTextarea
+        label="Short Bio"
         value={values.bio}
-        onChange={(e) => handleChange("bio", e.target.value)}
+        error={errors.bio}
+        onChange={(v) => handleChange("bio", v)}
       />
-      {errors.bio && <p className="text-red-500 text-sm">{errors.bio}</p>}
 
-      {/* --- Select --- */}
-      <select
-        value={values.option}
-        onChange={(e) => handleChange("option", e.target.value)}
-      >
-        <option value="">Choose an option</option>
-        <option value="a">Option A</option>
-        <option value="b">Option B</option>
-      </select>
-      {errors.option && <p className="text-red-500 text-sm">{errors.option}</p>}
-
-      {/* --- Radio --- */}
-      <div>
-        <label>
-          <input
-            type="radio"
-            name="gender"
-            value="male"
-            onChange={(e) => handleChange("gender", e.target.value)}
-          />
-          Male
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="gender"
-            value="female"
-            onChange={(e) => handleChange("gender", e.target.value)}
-          />
-          Female
-        </label>
-      </div>
-      {errors.gender && <p className="text-red-500 text-sm">{errors.gender}</p>}
-
-      {/* --- Checkbox --- */}
-      <label className="flex items-center gap-2">
-        <input
-          type="checkbox"
-          checked={values.agree}
-          onChange={(e) => handleChange("agree", e.target.checked)}
-        />
-        I agree to the terms
-      </label>
-      {errors.agree && <p className="text-red-500 text-sm">{errors.agree}</p>}
-
-      {/* --- File --- */}
-      <input
-        type="file"
-        onChange={(e) => handleChange("file", e.target.files?.[0] || null)}
+      {/* 🟩 Checkbox */}
+      <FormCheckbox
+        label="I agree to the terms"
+        checked={values.agree}
+        error={errors.agree}
+        onChange={(v) => handleChange("agree", v)}
       />
-      {errors.file && <p className="text-red-500 text-sm">{errors.file}</p>}
 
+      {/* 🟢 Submit */}
       <button
         type="submit"
-        className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg"
+        className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-lg transition-colors"
       >
         Submit
       </button>
-    </form>
+    </FormWrapper>
   );
 }
