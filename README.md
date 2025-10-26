@@ -74,7 +74,7 @@ npm run dev
 🧠 Usage Example
 
 Here’s a full working form using useFormEasy and built-in components 👇
-
+```
 import useFormEasy from "./hooks/useFormEasy";
 import FormWrapper from "./components/FormWrapper";
 import FormInput from "./components/FormInput";
@@ -109,7 +109,6 @@ export default function App() {
         error={errors.name}
         onChange={(v) => handleChange("name", v)}
       />
-
       <FormInput
         label="Email"
         type="email"
@@ -117,7 +116,7 @@ export default function App() {
         error={errors.email}
         onChange={(v) => handleChange("email", v)}
       />
-
+	  
       <FormInput
         label="Password"
         type="password"
@@ -125,7 +124,7 @@ export default function App() {
         error={errors.password}
         onChange={(v) => handleChange("password", v)}
       />
-
+	  
       <FormSelect
         label="Country"
         value={values.country}
@@ -174,7 +173,7 @@ export default function App() {
     </FormWrapper>
   );
 }
-
+```
 
 ⸻
 
@@ -183,7 +182,7 @@ export default function App() {
 All validation logic lives in /src/utils/validators.ts.
 
 Built-in validators include:
-
+```
 Field	Validation Rule
 name	Must not be empty
 email	Must follow valid email format
@@ -200,14 +199,14 @@ You can easily extend it:
 
 validationSchemas.username = (value) =>
   value.length < 4 ? "Username too short" : null;
-
+```
 
 ⸻
 
 ⚡ Debounce Hook Example
 
 Your custom debounce hook (useDebounce.ts):
-
+```
 import { useRef } from "react";
 
 export default function useDebounce<T extends (...args: any[]) => void>(
@@ -226,12 +225,12 @@ Use it inside your input:
 
 const debouncedChange = useDebounce(onChange, 400);
 onChange={(e) => debouncedChange(e.target.value)}
-
+```
 
 ⸻
 
 🧰 Available Components
-
+```
 Component	Purpose
 FormWrapper	Wraps the form with consistent styling
 FormInput	Text / email / password input
@@ -249,25 +248,25 @@ interface FormInputProps {
   type?: string;
   onChange: (value: string) => void;
 }
-
+```
 
 ⸻
 
 🧹 Developer Setup
 
 Run locally
-
+```
 npm run dev
 
 Format + Lint (runs automatically on commit via Husky)
 
 npm run format
 npm run lint
-
+```
 Build for production
-
+```
 npm run build
-
+```
 
 ⸻
 
