@@ -22,11 +22,10 @@ export default function App() {
 
   return (
     <FormWrapper
-  title="Form Easy Example"
-  description="Beautifully validated form built with useFormEasy"
-  onSubmit={handleSubmit}
->
-
+      title="Form Easy Example"
+      description="Beautifully validated form built with useFormEasy"
+      onSubmit={handleSubmit}
+    >
       {/* 🟦 Name */}
       <FormInput
         label="Full Name"
@@ -99,9 +98,10 @@ export default function App() {
       {/* 🟢 Submit */}
       <button
         type="submit"
-        className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-lg transition-colors"
+        className="relative overflow-hidden bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-indigo-600 hover:to-blue-600 text-white font-medium py-2.5 rounded-lg shadow-md transition-all duration-300 active:scale-95"
       >
-        Submit
+        <span className="relative z-10">Submit</span>
+        <div className="absolute inset-0 opacity-0 hover:opacity-10 bg-white transition-opacity duration-300" />
       </button>
     </FormWrapper>
   );

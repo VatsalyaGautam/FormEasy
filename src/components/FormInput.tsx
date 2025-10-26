@@ -1,13 +1,11 @@
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-
+import useDebounce from "@/hooks/useDebounce";
 interface FormInputProps {
   label: string;
   value: string;
   type?: string;
   error?: string;
-  placeholder?: string;
-  onChange: (v: string) => void;
+  onChange: (value: string) => void;
 }
 
 export default function FormInput({
@@ -16,18 +14,24 @@ export default function FormInput({
   type = "text",
   error,
   onChange,
-  placeholder,
 }: FormInputProps) {
+  const debouncedChange = useDebounce(onChange, 500); 
   return (
     <div className="flex flex-col gap-1">
-      <Label className="text-sm font-medium">{label}</Label>
+      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+        {label}
+      </label>
       <Input
         type={type}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder}
+        onChange={(e) =>  debouncedChange(e.target.value)}
+        className={`${
+          error
+            ? "border-red-500 focus:ring-red-300"
+            : "border-gray-300 dark:border-gray-700 focus:ring-blue-300"
+        }`}
       />
-      {error && <p className="text-sm text-red-500">{error}</p>}
+      {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
     </div>
   );
 }
