@@ -30,7 +30,7 @@
 ---
 
 ## 🏗️ Project Structure
-
+```
 src/
 ├── components/
 │   ├── FormInput.tsx
@@ -55,7 +55,7 @@ src/
 │
 ├── App.tsx
 └── main.tsx
-
+```
 ---
 
 ## ⚙️ Installation
