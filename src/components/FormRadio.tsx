@@ -1,8 +1,8 @@
 import {
   RadioGroup,
   RadioGroupItem,
-} from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
+} from "../components/ui/radio-group";
+import { Label } from "../components/ui/label";
 
 interface Option {
   label: string;

@@ -1,5 +1,5 @@
-import { Input } from "@/components/ui/input";
-import useDebounce from "@/hooks/useDebounce";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
 interface FormInputProps {
   label: string;
   value: string;
@@ -15,16 +15,14 @@ export default function FormInput({
   error,
   onChange,
 }: FormInputProps) {
-  const debouncedChange = useDebounce(onChange, 500); 
+
   return (
     <div className="flex flex-col gap-1">
-      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-        {label}
-      </label>
+       <Label htmlFor={label}>{label}</Label>
       <Input
         type={type}
         value={value}
-        onChange={(e) =>  debouncedChange(e.target.value)}
+        onChange={(e) =>  onChange(e.target.value)}
         className={`${
           error
             ? "border-red-500 focus:ring-red-300"

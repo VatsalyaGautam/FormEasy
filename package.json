@@ -1,33 +1,52 @@
 {
   "name": "form-easy",
-  "private": true,
   "version": "1.0.0",
+  "description": "🧠 A lightweight, TypeScript-first React form handling library with built-in validation, Shadcn UI, and Tailwind aesthetics.",
+  "author": "Vatsalya Gautam",
+  "license": "MIT",
   "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "format": "prettier --write .",
     "prepare": "husky install",
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -p tsconfig.build.json",
     "lint": "eslint .",
     "preview": "vite preview"
   },
-  "dependencies": {
+  "keywords": [
+    "react",
+    "form",
+    "validation",
+    "typescript",
+    "hooks",
+    "tailwind",
+    "shadcn",
+    "react-hook",
+    "form-library"
+  ],
+  "peerDependencies": {
     "@radix-ui/react-checkbox": "^1.3.3",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-radio-group": "^1.3.8",
     "@radix-ui/react-select": "^2.2.6",
     "@shadcn/ui": "^0.0.4",
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "dependencies": {
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "lucide-react": "^0.548.0",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
-    "@types/node": "^24.6.0",
     "@types/react": "^19.1.16",
     "@types/react-dom": "^19.1.9",
     "@vitejs/plugin-react": "^5.0.4",
@@ -38,6 +57,7 @@
     "globals": "^16.4.0",
     "husky": "^9.1.7",
     "postcss": "^8.5.6",
+    "prettier": "^3.6.2",
     "tailwindcss": "^3.4.18",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.45.0",

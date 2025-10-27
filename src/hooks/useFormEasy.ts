@@ -1,20 +1,32 @@
 import { useState } from "react";
 import { getError } from "../utils/validators";
+import useDebounce from "./useDebounce";
 
 export default function useFormEasy<T extends Record<string, any>>(
   initialValues: T,
   onSubmit: (values: T) => void
 ) {
   const [values, setValues] = useState(initialValues);
-  const [errors, setErrors] = useState<Record<keyof T, string>>({} as Record<keyof T, string>);
+  const [errors, setErrors] = useState<Record<keyof T, string>>({} as Record<
+    keyof T,
+    string
+  >);
+
+  // 🧠 Debounce field validation, not the input update
+  const debouncedValidate = useDebounce(
+    (name: keyof T, value: any) => {
+      const error = getError(name as string, value);
+      setErrors((prev) => ({ ...prev, [name]: error || "" }));
+    },
+    400 // Adjust delay for validation responsiveness
+  );
 
   const handleChange = (name: keyof T, value: any) => {
-    // 1️⃣ Update value
+    // Instant value update
     setValues((prev) => ({ ...prev, [name]: value }));
 
-    // 2️⃣ Live validate this field
-    const error = getError(name as string, value);
-    setErrors((prev) => ({ ...prev, [name]: error || "" }));
+    // Debounced validation — avoids laggy input
+    debouncedValidate(name, value);
   };
 
   const handleSubmit = (e: React.FormEvent) => {

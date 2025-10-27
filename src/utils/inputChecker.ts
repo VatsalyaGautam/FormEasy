@@ -41,7 +41,7 @@ const inputChecker = {
     value ? null : "Please select a file.",
 
   // ✅ Checkbox
-  checkbox: (value: boolean) =>
+  agree: (value: boolean) =>
     value ? null : "You must check this box to continue.",
 
   // 🔘 Radio
