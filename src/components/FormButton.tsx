@@ -18,15 +18,24 @@ const FormButton: React.FC<ButtonProps> = ({
   const [isThrottled, setIsThrottled] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  //   if (isThrottled || disabled) {
+  //     e.preventDefault();
+  //     return;
+  //   }
+
+  //   setIsThrottled(true);
+  //   timerRef.current = setTimeout(() => setIsThrottled(false), throttle);
+  // };
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (isThrottled || disabled) {
       e.preventDefault();
       return;
-    }
-
-
+    }                                                           
+    // console.log("clicked!");
     setIsThrottled(true);
     timerRef.current = setTimeout(() => setIsThrottled(false), throttle);
+    e.currentTarget.form?.requestSubmit();
   };
 
   const base =

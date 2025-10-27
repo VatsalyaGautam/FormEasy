@@ -2,7 +2,7 @@ import { useRef } from "react";
 
 export default function useThrottle<T extends (...args: any[]) => void>(
   callback: T,
-  delay = 300
+  delay = 300,
 ) {
   const lastCall = useRef<number>(0);
 

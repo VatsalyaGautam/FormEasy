@@ -4,7 +4,9 @@ const inputChecker = {
     value.trim() ? null : "This field cannot be empty.",
 
   name: (value: string) =>
-    value.trim() ? null : "Name cannot be empty. Please provide your full name.",
+    value.trim()
+      ? null
+      : "Name cannot be empty. Please provide your full name.",
 
   // 📧 Email
   email: (value: string) =>
@@ -20,7 +22,9 @@ const inputChecker = {
 
   // 🔒 Password
   password: (value: string) =>
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@$%^&*#])[A-Za-z\d!@$%^&*#]{8,}$/.test(value)
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@$%^&*#])[A-Za-z\d!@$%^&*#]{8,}$/.test(
+      value,
+    )
       ? null
       : "Password must be at least 8 characters and include letters, numbers, and a special character.",
 
@@ -29,28 +33,23 @@ const inputChecker = {
     value.trim().length > 0 ? null : "Please enter some text.",
 
   // 📅 Date
-  date: (value: string) =>
-    value ? null : "Please select a valid date.",
+  date: (value: string) => (value ? null : "Please select a valid date."),
 
   // ⏰ Time
-  time: (value: string) =>
-    value ? null : "Please select a valid time.",
+  time: (value: string) => (value ? null : "Please select a valid time."),
 
   // 📂 File
-  file: (value: File | null) =>
-    value ? null : "Please select a file.",
+  file: (value: File | null) => (value ? null : "Please select a file."),
 
   // ✅ Checkbox
   agree: (value: boolean) =>
     value ? null : "You must check this box to continue.",
 
   // 🔘 Radio
-  radio: (value: string) =>
-    value ? null : "Please select an option.",
+  radio: (value: string) => (value ? null : "Please select an option."),
 
   // ⬇️ Select dropdown
-  select: (value: string) =>
-    value ? null : "Please choose an option.",
+  select: (value: string) => (value ? null : "Please choose an option."),
 };
 
-export default inputChecker ;
+export default inputChecker;

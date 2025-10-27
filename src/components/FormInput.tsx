@@ -15,14 +15,13 @@ export default function FormInput({
   error,
   onChange,
 }: FormInputProps) {
-
   return (
     <div className="flex flex-col gap-1">
-       <Label htmlFor={label}>{label}</Label>
+      <Label htmlFor={label}>{label}</Label>
       <Input
         type={type}
         value={value}
-        onChange={(e) =>  onChange(e.target.value)}
+        onChange={(e) => onChange(e.target.value)}
         className={`${
           error
             ? "border-red-500 focus:ring-red-300"

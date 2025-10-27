@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 
 interface SelectContextValue {
   value: string;
@@ -9,15 +9,15 @@ interface SelectContextValue {
   name?: string;
 }
 
-const SelectContext = React.createContext<SelectContextValue | null>(null)
+const SelectContext = React.createContext<SelectContextValue | null>(null);
 
 const useSelectContext = () => {
-  const context = React.useContext(SelectContext)
+  const context = React.useContext(SelectContext);
   if (!context) {
-    throw new Error("Select components must be used within a Select")
+    throw new Error("Select components must be used within a Select");
   }
-  return context
-}
+  return context;
+};
 
 interface SelectProps {
   value?: string;
@@ -28,83 +28,106 @@ interface SelectProps {
   children: React.ReactNode;
 }
 
-const Select = ({ value, defaultValue, onValueChange, disabled = false, name, children }: SelectProps) => {
-  const [internalValue, setInternalValue] = React.useState(defaultValue || "")
-  const [open, setOpen] = React.useState(false)
-  const isControlled = value !== undefined
-  const currentValue = isControlled ? value : internalValue
+const Select = ({
+  value,
+  defaultValue,
+  onValueChange,
+  disabled = false,
+  name,
+  children,
+}: SelectProps) => {
+  const [internalValue, setInternalValue] = React.useState(defaultValue || "");
+  const [open, setOpen] = React.useState(false);
+  const isControlled = value !== undefined;
+  const currentValue = isControlled ? value : internalValue;
 
   const handleValueChange = (newValue: string) => {
-    if (disabled) return
-    
+    if (disabled) return;
+
     if (!isControlled) {
-      setInternalValue(newValue)
+      setInternalValue(newValue);
     }
-    
+
     if (onValueChange) {
-      onValueChange(newValue)
+      onValueChange(newValue);
     }
-    
-    setOpen(false)
-  }
+
+    setOpen(false);
+  };
 
   return (
-    <SelectContext.Provider value={{ value: currentValue, onValueChange: handleValueChange, open, setOpen, disabled, name }}>
+    <SelectContext.Provider
+      value={{
+        value: currentValue,
+        onValueChange: handleValueChange,
+        open,
+        setOpen,
+        disabled,
+        name,
+      }}
+    >
       {children}
     </SelectContext.Provider>
-  )
-}
+  );
+};
 
-const SelectGroup = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
-  return <div className={className}>{children}</div>
-}
+const SelectGroup = ({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
+  return <div className={className}>{children}</div>;
+};
 
 interface SelectValueProps {
   placeholder?: string;
 }
 
 const SelectValue = ({ placeholder }: SelectValueProps) => {
-  const { value } = useSelectContext()
-  
+  const { value } = useSelectContext();
+
   return (
     <span className={!value ? "text-gray-400" : ""}>
       {value || placeholder}
     </span>
-  )
-}
+  );
+};
 
-interface SelectTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface SelectTriggerProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
 }
 
 const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
   ({ className = "", children, ...props }, ref) => {
-    const { open, setOpen, disabled } = useSelectContext()
-    const triggerRef = React.useRef<HTMLButtonElement>(null)
-    const [triggerWidth, setTriggerWidth] = React.useState(0)
+    const { open, setOpen, disabled } = useSelectContext();
+    const triggerRef = React.useRef<HTMLButtonElement>(null);
+    const [triggerWidth, setTriggerWidth] = React.useState(0);
 
-    React.useImperativeHandle(ref, () => triggerRef.current!)
+    React.useImperativeHandle(ref, () => triggerRef.current!);
 
     React.useEffect(() => {
       if (triggerRef.current) {
-        setTriggerWidth(triggerRef.current.offsetWidth)
+        setTriggerWidth(triggerRef.current.offsetWidth);
       }
-    }, [])
+    }, []);
 
     const handleClick = () => {
       if (!disabled) {
-        setOpen(!open)
+        setOpen(!open);
       }
-    }
+    };
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault()
-        handleClick()
-      } else if (e.key === 'Escape') {
-        setOpen(false)
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        handleClick();
+      } else if (e.key === "Escape") {
+        setOpen(false);
       }
-    }
+    };
 
     return (
       <>
@@ -137,11 +160,11 @@ const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
           </svg>
         </button>
       </>
-    )
-  }
-)
+    );
+  },
+);
 
-SelectTrigger.displayName = "SelectTrigger"
+SelectTrigger.displayName = "SelectTrigger";
 
 interface SelectContentProps {
   children: React.ReactNode;
@@ -151,28 +174,32 @@ interface SelectContentProps {
 
 const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps>(
   ({ className = "", children, position = "popper" }, ref) => {
-    const { open, setOpen, value, name } = useSelectContext()
-    const contentRef = React.useRef<HTMLDivElement>(null)
+    const { open, setOpen, value, name } = useSelectContext();
+    const contentRef = React.useRef<HTMLDivElement>(null);
 
-    React.useImperativeHandle(ref, () => contentRef.current!)
+    React.useImperativeHandle(ref, () => contentRef.current!);
 
     React.useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
-        if (contentRef.current && !contentRef.current.contains(event.target as Node)) {
-          const trigger = document.querySelector('[role="combobox"]')
+        if (
+          contentRef.current &&
+          !contentRef.current.contains(event.target as Node)
+        ) {
+          const trigger = document.querySelector('[role="combobox"]');
           if (trigger && !trigger.contains(event.target as Node)) {
-            setOpen(false)
+            setOpen(false);
           }
         }
-      }
+      };
 
       if (open) {
-        document.addEventListener("mousedown", handleClickOutside)
-        return () => document.removeEventListener("mousedown", handleClickOutside)
+        document.addEventListener("mousedown", handleClickOutside);
+        return () =>
+          document.removeEventListener("mousedown", handleClickOutside);
       }
-    }, [open, setOpen])
+    }, [open, setOpen]);
 
-    if (!open) return null
+    if (!open) return null;
 
     return (
       <>
@@ -182,26 +209,21 @@ const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps>(
           role="listbox"
           className={`absolute z-50 mt-1 max-h-60 min-w-[8rem] overflow-y-auto rounded-md border border-gray-200 bg-white shadow-lg ${className}`}
           style={{
-            width: position === "popper" ? "var(--radix-select-trigger-width)" : undefined
+            width:
+              position === "popper"
+                ? "var(--radix-select-trigger-width)"
+                : undefined,
           }}
         >
-          <div className="p-1">
-            {children}
-          </div>
+          <div className="p-1">{children}</div>
         </div>
-        {name && (
-          <input
-            type="hidden"
-            name={name}
-            value={value}
-          />
-        )}
+        {name && <input type="hidden" name={name} value={value} />}
       </>
-    )
-  }
-)
+    );
+  },
+);
 
-SelectContent.displayName = "SelectContent"
+SelectContent.displayName = "SelectContent";
 
 interface SelectLabelProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
@@ -217,11 +239,11 @@ const SelectLabel = React.forwardRef<HTMLDivElement, SelectLabelProps>(
       >
         {children}
       </div>
-    )
-  }
-)
+    );
+  },
+);
 
-SelectLabel.displayName = "SelectLabel"
+SelectLabel.displayName = "SelectLabel";
 
 interface SelectItemProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string;
@@ -230,22 +252,25 @@ interface SelectItemProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
-  ({ className = "", value: itemValue, children, disabled = false, ...props }, ref) => {
-    const { value, onValueChange } = useSelectContext()
-    const isSelected = value === itemValue
+  (
+    { className = "", value: itemValue, children, disabled = false, ...props },
+    ref,
+  ) => {
+    const { value, onValueChange } = useSelectContext();
+    const isSelected = value === itemValue;
 
     const handleClick = () => {
       if (!disabled) {
-        onValueChange(itemValue)
+        onValueChange(itemValue);
       }
-    }
+    };
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault()
-        handleClick()
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        handleClick();
       }
-    }
+    };
 
     return (
       <div
@@ -279,11 +304,11 @@ const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
           </span>
         )}
       </div>
-    )
-  }
-)
+    );
+  },
+);
 
-SelectItem.displayName = "SelectItem"
+SelectItem.displayName = "SelectItem";
 
 interface SelectSeparatorProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -295,15 +320,17 @@ const SelectSeparator = React.forwardRef<HTMLDivElement, SelectSeparatorProps>(
         className={`-mx-1 my-1 h-px bg-gray-200 ${className}`}
         {...props}
       />
-    )
-  }
-)
+    );
+  },
+);
 
-SelectSeparator.displayName = "SelectSeparator"
+SelectSeparator.displayName = "SelectSeparator";
 
 const SelectScrollUpButton = ({ className = "" }: { className?: string }) => {
   return (
-    <div className={`flex cursor-default items-center justify-center py-1 ${className}`}>
+    <div
+      className={`flex cursor-default items-center justify-center py-1 ${className}`}
+    >
       <svg
         width="16"
         height="16"
@@ -317,12 +344,14 @@ const SelectScrollUpButton = ({ className = "" }: { className?: string }) => {
         <polyline points="18 15 12 9 6 15" />
       </svg>
     </div>
-  )
-}
+  );
+};
 
 const SelectScrollDownButton = ({ className = "" }: { className?: string }) => {
   return (
-    <div className={`flex cursor-default items-center justify-center py-1 ${className}`}>
+    <div
+      className={`flex cursor-default items-center justify-center py-1 ${className}`}
+    >
       <svg
         width="16"
         height="16"
@@ -336,8 +365,8 @@ const SelectScrollDownButton = ({ className = "" }: { className?: string }) => {
         <polyline points="6 9 12 15 18 9" />
       </svg>
     </div>
-  )
-}
+  );
+};
 
 export {
   Select,
@@ -350,4 +379,4 @@ export {
   SelectSeparator,
   SelectScrollUpButton,
   SelectScrollDownButton,
-}
+};
