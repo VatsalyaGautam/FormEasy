@@ -1,11 +1,12 @@
 ```
 ███████╗ ██████╗ ██████╗ ███╗   ███╗███████╗ █████╗ ███████╗██╗   ██╗
 ██╔════╝██╔═══██╗██╔══██╗████╗ ████║██╔════╝██╔══██╗██╔════╝╚██╗ ██╔╝
-█████╗  ██║   ██║██████╔╝██╔████╔██║█████╗  ███████║███████╗ ╚████╔╝ 
-██╔══╝  ██║   ██║██╔══██╗██║╚██╔╝██║██╔══╝  ██╔══██║╚════██║  ╚██╔╝  
-██║     ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗██║  ██║███████║   ██║   
-╚═╝      ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝   
+█████╗  ██║   ██║██████╔╝██╔████╔██║█████╗  ███████║███████╗ ╚████╔╝
+██╔══╝  ██║   ██║██╔══██╗██║╚██╔╝██║██╔══╝  ██╔══██║╚════██║  ╚██╔╝
+██║     ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗██║  ██║███████║   ██║
+╚═╝      ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝
 ```
+
 # 🧩 FormEasy — Beautiful, Type-Safe, and Minimal React Form Handling
 
 > A lightweight, fully type-safe React + TypeScript form validation library built for modern UI — with Shadcn/Tailwind styling, live validation, and zero boilerplate.
@@ -30,6 +31,7 @@
 ---
 
 ## 🏗️ Project Structure
+
 ```
 src/
 ├── components/
@@ -56,6 +58,7 @@ src/
 ├── App.tsx
 └── main.tsx
 ```
+
 ---
 
 ## ⚙️ Installation
@@ -63,17 +66,19 @@ src/
 Clone or fork the repo, then install dependencies:
 
 ```bash
-git clone https://github.com/<your-username>/form-easy.git
+git clone https://github.com/VatsalyaGautam/form-easy.git
 cd form-easy
 npm install
 npm run dev
 
 ```
+
 ⸻
 
 🧠 Usage Example
 
 Here’s a full working form using useFormEasy and built-in components 👇
+
 ```
 import useFormEasy from "./hooks/useFormEasy";
 import FormWrapper from "./components/FormWrapper";
@@ -116,7 +121,7 @@ export default function App() {
         error={errors.email}
         onChange={(v) => handleChange("email", v)}
       />
-	  
+
       <FormInput
         label="Password"
         type="password"
@@ -124,7 +129,7 @@ export default function App() {
         error={errors.password}
         onChange={(v) => handleChange("password", v)}
       />
-	  
+
       <FormSelect
         label="Country"
         value={values.country}
@@ -182,6 +187,7 @@ export default function App() {
 All validation logic lives in /src/utils/validators.ts.
 
 Built-in validators include:
+
 ```
 Field	Validation Rule
 name	Must not be empty
@@ -206,6 +212,7 @@ validationSchemas.username = (value) =>
 ⚡ Debounce Hook Example
 
 Your custom debounce hook (useDebounce.ts):
+
 ```
 import { useRef } from "react";
 
@@ -230,6 +237,7 @@ onChange={(e) => debouncedChange(e.target.value)}
 ⸻
 
 🧰 Available Components
+
 ```
 Component	Purpose
 FormWrapper	Wraps the form with consistent styling
@@ -255,6 +263,7 @@ interface FormInputProps {
 🧹 Developer Setup
 
 Run locally
+
 ```
 npm run dev
 
@@ -263,7 +272,9 @@ Format + Lint (runs automatically on commit via Husky)
 npm run format
 npm run lint
 ```
+
 Build for production
+
 ```
 npm run build
 ```
@@ -271,19 +282,19 @@ npm run build
 ⸻
 
 🌈 Roadmap
-	•	Add resetForm and isSubmitting
-	•	Async validation example
-	•	Add FormButton component with loading state
-	•	Add dark/light theme toggle
-	•	Support dynamic JSON-based form builder
-	•	Publish as npm package @vatsalya/form-easy
+• Add resetForm and isSubmitting
+• Async validation example
+• Add FormButton component with loading state
+• Add dark/light theme toggle
+• Support dynamic JSON-based form builder
+• Publish as npm package @vatsalya/form-easy
 
 ⸻
 
 💖 Acknowledgements
-	•	Shadcn/UI for inspiration and UI base
-	•	Tailwind CSS for styling
-	•	React and Vite for fast dev setup
+• Shadcn/UI for inspiration and UI base
+• Tailwind CSS for styling
+• React and Vite for fast dev setup
 
 ⸻
 
@@ -298,5 +309,3 @@ Licensed under the MIT License — free to use and modify.
 Vatsalya Gautam
 
 ⸻
-
-
